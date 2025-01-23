@@ -7,8 +7,8 @@ class Mahasiswa(db.Model):
     name = db.Column(db.String(250), nullable=False)
     phone = db.Column(db.String(250), nullable=False)
     alamat = db.Column(db.String(250), nullable=False)
-    dosen_satu = db.Column(db.BigInteger, db.ForeignKey(Dosen.id))
-    dosen_dua = db.Column(db.BigInteger, db.ForeignKey(Dosen.id))
+    dosen_satu = db.Column(db.BigInteger, db.ForeignKey(Dosen.id, ondelete='CASCADE'))
+    dosen_dua = db.Column(db.BigInteger, db.ForeignKey(Dosen.id,  ondelete='CASCADE'))
     
 
     def __repr__(self):

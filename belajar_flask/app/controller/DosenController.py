@@ -88,10 +88,67 @@ def save():
         phone = request.form.get('phone')
         alamat = request.form.get('alamat')
 
+        input = [
+            {
+                "nidn" : nidn,
+                "name" : name,
+                "phone" : phone,
+                "alamat" : alamat,
+            }
+        ]
+
         dosens = Dosen(nidn=nidn, name=name, phone=phone, alamat=alamat )
         db.session.add(dosens)
         db.session.commit()
 
-        return response.success('','Data successfully created')
+        return response.success(input,'Data successfully created')
+    except Exception as e:
+        print(e)
+
+
+# update data
+def Update(id):
+    try:
+        nidn  = request.form.get('nidn')
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        alamat = request.form.get('alamat')
+
+        input = [
+            {
+                "nidn" : nidn,
+                "name" : name,
+                "phone" : phone,
+                "alamat" : alamat,
+            }
+        ]
+
+        dosen = Dosen.query.filter_by(id=id).first()
+
+        dosen.nidn = nidn
+        dosen.name = name
+        dosen.phone = phone
+        dosen.alamat = alamat
+
+        db.session.commit()
+
+        return response.success(input,"succes update data")
+    
+    except Exception as e:
+        print(e)
+
+# delete data
+def Delete(id):
+    try: 
+        dosen = Dosen.query.filter_by(id=id).first()
+
+        if not dosen:
+            return response.badRequest([],"Not Found")
+        
+        db.session.delete(dosen)
+        db.session.commit()
+        
+        return response.success('','Successfully deleting data')
+    
     except Exception as e:
         print(e)
