@@ -79,3 +79,19 @@ def formatMahasiswa(data):
         array.append(singleMahasiswa(i))
 
     return array
+
+
+def save():
+    try:
+        nidn = request.form.get('nidn')
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        alamat = request.form.get('alamat')
+
+        dosens = Dosen(nidn=nidn, name=name, phone=phone, alamat=alamat )
+        db.session.add(dosens)
+        db.session.commit()
+
+        return response.success('','Data successfully created')
+    except Exception as e:
+        print(e)
